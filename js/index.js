@@ -85,4 +85,20 @@ $(document).ready(function(){
   validateForm('#consultation form');
   validateForm('#order form');
   $('input[name=phone]').mask("+420(999)-999-999");
+
+  $('form').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: "mailer/smart.php",
+      data: $(this).serialize()
+    }).done(function() {
+        $(this).find('input').val('');
+
+        $('form').trigger('reset');
+      })
+    return false;
+    
+  })
+  
 });
